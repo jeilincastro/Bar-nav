@@ -1,67 +1,106 @@
 import { useState } from "react";
 import { Link } from "react-scroll";
-import { FaBars, FaTimes } from "react-icons/fa";
+import {FaTimes} from "react-icons/fa";
+import {CiMenuFries} from "react-icons/ci";
 
-const Nav = () => {
-    const [isOpen, setIsOpen] = useState(false);
 
-    const toggleMenu = () => {
-        setIsOpen(!isOpen);
-    };
+const Nav  = () =>{
 
-    return (
-        <nav className="bg-gray-800">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex items-center justify-between h-16">
-                    <div className="flex-shrink-0">
-                        <span className="text-white text-lg font-semibold">Logo</span>
-                    </div>
-                    <div className="hidden md:block">
-                        <ul className="flex space-x-4 text-white">
-                            <NavLink to="Home">Home</NavLink>
-                            <NavLink to="Service">Service</NavLink>
-                            <NavLink to="About">About</NavLink>
-                            <NavLink to="Contact">Contact</NavLink>
-                            <NavLink to="Projects">Projects</NavLink>
-                        </ul>
-                    </div>
-                    <div className="md:hidden flex items-center">
-                        <button
-                            className="text-white hover:text-gray-400 focus:outline-none"
-                            onClick={toggleMenu}
-                        >
-                            {isOpen ? <FaTimes /> : <FaBars />}
-                        </button>
-                    </div>
-                </div>
+    const [click, setClick]= useState(false);
+    const handleClick = () => setClick(!click); 
+
+const content = <>
+
+<div className="lg:hidden block absolute top-16 w-full left-0 rigth-0 bg-slate-900 transition">
+      
+    <ul className="text-center text-xl p-20">
+        <Link spy={true} smooth={true}  to="Home">
+        <li  className="my-4 py-4 border-b border-slate-800 hover:bg-slate-800 hover:rounded">
+            home
+        </li>
+        </Link>
+
+        <Link spy={true} smooth={true}  to="Service">
+        <li  className="my-4 py-4 border-b border-slate-800 hover:bg-slate-800 hover:rounded">
+         Service
+        </li>
+        </Link>
+
+        <Link spy={true} smooth={true}  to="About">
+        <li  className="my-4 py-4 border-b border-slate-800 hover:bg-slate-800 hover:rounded">
+            About
+        </li>
+        </Link>
+
+        <Link spy={true} smooth={true}  to="Contact">
+        <li  className="my-4 py-4 border-b border-slate-800 hover:bg-slate-800 hover:rounded">
+            Contact
+        </li>
+        </Link>
+
+        <Link spy={true} smooth={true} to="Projects" >
+        <li className="my-4 py-4 border-b border-slate-800 hover:bg-slate-800 hover:rounded">
+            Projects
+        </li>
+        </Link>
+    </ul>
+</div>
+
+</>
+
+return(
+       <nav>
+        <div className=" h-10vh flex justify-between z-50 text-white lg:py-5 px-20 py-4 flex-1">
+            <div className=" flex items-center flex-1" >
+                <span  className=" text-3xl font-bold">Logo</span>
             </div>
-            {isOpen && (
-                <div className="md:hidden bg-gray-700">
-                    <ul className="flex flex-col space-y-4 text-white">
-                        <NavLink to="Home" onClick={toggleMenu}>Home</NavLink>
-                        <NavLink to="Service" onClick={toggleMenu}>Service</NavLink>
-                        <NavLink to="About" onClick={toggleMenu}>About</NavLink>
-                        <NavLink to="Contact" onClick={toggleMenu}>Contact</NavLink>
-                        <NavLink to="Projects" onClick={toggleMenu}>Projects</NavLink>
-                    </ul>
+            <div className=" lg:flex md:flex lg: flex-1 items center justify-end  font-normal hidden">
+                <div className=" flex-10">
+             <ul className="flex gap-8 mr-16 text-[18px]">
+                
+        <Link spy={true} smooth={true} to="Home">
+        <li className="hover:text-fuchsia-600 transition border-b-2 border-slate-600 hover:border-fuchsia-600 cursor-pointer ">
+            home
+        </li>
+        </Link>
+
+        <Link spy={true} smooth={true} to="Service">
+        <li className="hover:text-fuchsia-600 transition border-b-2 border-slate-600 hover:border-fuchsia-600 cursor-pointer ">
+         Service
+        </li>
+        </Link>
+
+        <Link spy={true} smooth={true} to="About">
+        <li className="hover:text-fuchsia-600 transition border-b-2 border-slate-600 hover:border-fuchsia-600 cursor-pointer ">
+            About
+        </li>
+        </Link>
+
+        <Link spy={true} smooth={true} to="Contact">
+        <li className="hover:text-fuchsia-600 transition border-b-2 border-slate-600 hover:border-fuchsia-600 cursor-pointer ">
+            Contact
+        </li>
+        </Link>
+
+        <Link spy={true} smooth={true} to="Projects">
+        <li className="hover:text-fuchsia-600 transition border-b-2 border-slate-600 hover:border-fuchsia-600 cursor-pointer ">
+            Projects
+        </li>
+        </Link>
+            </ul>
                 </div>
-            )}
-        </nav>
+
+                <div>
+                {click && content}
+                </div>
+
+                <button className="lg:block sm:hidden transtion" onClick={handleClick}>
+                    {click ? <FaTimes/> : <CiMenuFries/>}
+                </button>
+
+            </div>
+        </div>
+    </nav>
     );
 };
-
-const NavLink = ({ to, children, onClick }) => (
-    <li>
-        <Link
-            className="block px-3 py-2 rounded-md text-base font-medium hover:text-white hover:bg-gray-700"
-            to={to}
-            spy={true}
-            smooth={true}
-            onClick={onClick}
-        >
-            {children}
-        </Link>
-    </li>
-);
-
 export default Nav;
